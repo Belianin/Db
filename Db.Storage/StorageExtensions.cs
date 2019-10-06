@@ -1,4 +1,6 @@
 using System.Threading.Tasks;
+using Db.Logging;
+using Db.Logging.Abstractions;
 using Db.Utils;
 
 namespace Db.Storage
@@ -51,6 +53,12 @@ namespace Db.Storage
 
             await storage.CreateOrUpdateAsync(key, value).ConfigureAwait(false);
             return await storage.GetAsync(key).ConfigureAwait(false);
+        }
+
+        public static IStorage<TKey, TValue> WithCaching<TKey, TValue>(this IStorage<TKey, TValue> storage,
+            IStorage<TKey, TValue> cachingStorage, ILog log = null)
+        {
+            return new CachingStorage<TKey, TValue>(cachingStorage, storage, log ?? new FakeLog());
         }
     }
 }
