@@ -9,20 +9,48 @@ namespace Db.Storage
 {
     public class InFileStorage<TKey, TValue> : IStorage<TKey, TValue>
     {
-        private readonly ISerialization<TValue> serialization = new JsonSerialization<TValue>();
+        private readonly InFileStorage<TKey> innerStorage;
+
+        public InFileStorage(string name = null, ILog log = null)
+        {
+            var innerName = name ?? typeof(TValue).Name;
+            var innerLog = log?.WithPrefix($"InFileStorage({typeof(TValue).Name})");
+            
+            innerStorage = new InFileStorage<TKey>(innerName, innerLog);
+        }
+
+        public async Task<Result> CreateOrUpdateAsync(TKey key, TValue value)
+        {
+            return await innerStorage.CreateOrUpdateAsync(key, value).ConfigureAwait(false);
+        }
+
+        public async Task<Result<TValue>> GetAsync(TKey key)
+        {
+            return await innerStorage.GetAsync<TValue>(key).ConfigureAwait(false);
+        }
+
+        public async Task<Result> DeleteAsync(TKey key)
+        {
+            return await innerStorage.DeleteAsync(key).ConfigureAwait(false);
+        }
+    }
+    
+    public class InFileStorage<TKey> : IStorage<TKey>
+    {
+        private readonly ISerialization serialization = new JsonSerialization();
 
         private readonly string path;
 
         private readonly ILog log;
 
-        public InFileStorage(string name = null, ILog log = null)
+        public InFileStorage(string name, ILog log = null)
         {
-            path = $"storage/{name ?? typeof(TValue).Name}/";
+            path = $"storage/{name}/";
             Directory.CreateDirectory(path);
-            this.log = log == null ? new FakeLog() : log.WithPrefix($"InFileStorage({typeof(TValue).Name})");
+            this.log = log == null ? new FakeLog() : log.WithPrefix($"InFileStorage");
         }
-
-        public async Task<Result> CreateOrUpdateAsync(TKey key, TValue value)
+        
+        public async Task<Result> CreateOrUpdateAsync<T>(TKey key, T value)
         {
             var serializedValue = serialization.Serialize(value);
             using (var file = File.CreateText(GetFileName(key)))
@@ -33,7 +61,7 @@ namespace Db.Storage
             return Result.Ok();
         }
 
-        public async Task<Result<TValue>> GetAsync(TKey key)
+        public async Task<Result<T>> GetAsync<T>(TKey key)
         {
             var fileName = GetFileName(key);
             if (!File.Exists(fileName))
@@ -42,18 +70,18 @@ namespace Db.Storage
             using (var file = File.OpenText(GetFileName(key)))
             {
                 var str = await file.ReadToEndAsync().ConfigureAwait(false);
-                return serialization.Deserialize(str);
+                return serialization.Deserialize<T>(str);
             }
         }
-
-        public Task<Result> DeleteAsync(TKey key)
+        
+        public async Task<Result> DeleteAsync(TKey key)
         {
             var fileName = GetFileName(key);
             if (!File.Exists(fileName))
-                return Task.FromResult(Result.Ok());
+                return Result.Ok();
             
             File.Delete(fileName);
-            return Task.FromResult(Result.Ok());
+            return Result.Ok();
         }
 
         private string GetFileName(TKey key)

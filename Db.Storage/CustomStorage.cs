@@ -5,7 +5,7 @@ using Db.Utils;
 
 namespace Db.Storage
 {
-    public class CustomStorage : IStorage
+    public class CustomStorage<TKey> : IStorage<TKey>
     {
         private readonly ISerialization serialization = new JsonSerialization();
 
@@ -17,7 +17,7 @@ namespace Db.Storage
             Directory.CreateDirectory(path);
         }
         
-        public async Task<Result> CreateOrUpdateAsync<T>(string key, T value)
+        public async Task<Result> CreateOrUpdateAsync<T>(TKey key, T value)
         {
             var serializedValue = serialization.Serialize(value);
             using (var file = File.CreateText(GetFileName(key)))
@@ -28,7 +28,7 @@ namespace Db.Storage
             return Result.Ok();
         }
 
-        public async Task<Result<T>> GetAsync<T>(string key)
+        public async Task<Result<T>> GetAsync<T>(TKey key)
         {
             var fileName = GetFileName(key);
             if (!File.Exists(fileName))
@@ -41,7 +41,7 @@ namespace Db.Storage
             }
         }
         
-        public Task<Result> DeleteAsync(string key)
+        public Task<Result> DeleteAsync(TKey key)
         {
             var fileName = GetFileName(key);
             if (!File.Exists(fileName))
@@ -51,9 +51,9 @@ namespace Db.Storage
             return Task.FromResult(Result.Ok());
         }
 
-        private string GetFileName(string key)
+        private string GetFileName(TKey key)
         {
-            return $"{path}{key}";
+            return $"{path}{key.ToString()}";
         }
     }
 }

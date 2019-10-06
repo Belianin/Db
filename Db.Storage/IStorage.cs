@@ -11,13 +11,13 @@ namespace Db.Storage
 
         Task<Result> DeleteAsync(TKey key);
     }
-    
-    public interface IStorage
+
+    public interface IStorage<in TKey>
     {
-        Task<Result> CreateOrUpdateAsync<T>(string key, T value);
+        Task<Result> CreateOrUpdateAsync<T>(TKey key, T value);
 
-        Task<Result<T>> GetAsync<T>(string key);
+        Task<Result<T>> GetAsync<T>(TKey key);
 
-        Task<Result> DeleteAsync(string key);
+        Task<Result> DeleteAsync(TKey key);
     }
 }
