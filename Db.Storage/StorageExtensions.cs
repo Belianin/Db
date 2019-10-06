@@ -3,9 +3,9 @@ using Db.Utils;
 
 namespace Db.Storage
 {
-    public static class CustomStorageExtensions
+    public static class StorageExtensions
     {
-        public static async Task<Result<T>> GetOrCreateAsync<T>(this ICustomStorage storage, string key) where T : new()
+        public static async Task<Result<T>> GetOrCreateAsync<T>(this IStorage storage, string key) where T : new()
         {
             var getResult = await storage.GetAsync<T>(key).ConfigureAwait(false);
             if (getResult.IsSuccess)

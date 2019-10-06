@@ -1,5 +1,7 @@
 using System.IO;
 using System.Threading.Tasks;
+using Db.Logging;
+using Db.Logging.Abstractions;
 using Db.Storage.Serialization;
 using Db.Utils;
 
@@ -11,10 +13,13 @@ namespace Db.Storage
 
         private readonly string path;
 
-        public InFileStorage(string name)
+        private readonly ILog log;
+
+        public InFileStorage(string name = null, ILog log = null)
         {
-            path = $"storage/{name}/";
+            path = $"storage/{name ?? typeof(TValue).Name}/";
             Directory.CreateDirectory(path);
+            this.log = log == null ? new FakeLog() : log.WithPrefix($"InFileStorage({typeof(TValue).Name})");
         }
 
         public async Task<Result> CreateOrUpdateAsync(TKey key, TValue value)

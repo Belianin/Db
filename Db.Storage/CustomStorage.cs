@@ -5,7 +5,7 @@ using Db.Utils;
 
 namespace Db.Storage
 {
-    public class CustomStorage : ICustomStorage
+    public class CustomStorage : IStorage
     {
         private readonly ISerialization serialization = new JsonSerialization();
 
