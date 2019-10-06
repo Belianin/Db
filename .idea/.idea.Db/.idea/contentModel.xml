@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\smart\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\smart\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_Db.898331997.00" t="ExcludeRecursive" />
+    <e p="D:\Projects\CSharp\Db" t="IncludeFlat">
+      <e p="Db.Logging" t="IncludeRecursive">
+        <e p="Abstractions" t="Include">
+          <e p="BaseLog.cs" t="Include" />
+          <e p="ILog.cs" t="Include" />
+          <e p="LogEvent.cs" t="Include" />
+          <e p="LogExtensions.cs" t="Include" />
+          <e p="LogFormatter.cs" t="Include" />
+          <e p="PrefixLog.cs" t="Include" />
+        </e>
+        <e p="AggregationLog.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="ColorConsoleLog.cs" t="Include" />
+        <e p="ConsoleLog.cs" t="Include" />
+        <e p="Db.Logging.csproj" t="IncludeRecursive" />
+        <e p="FakeLog.cs" t="Include" />
+        <e p="FileLog.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="Db.Logging.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Db.Metrics" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Counter" t="Include">
+          <e p="CounterEvent.cs" t="Include" />
+          <e p="CounterExtensions.cs" t="Include" />
+          <e p="Double" t="Include">
+            <e p="IDoubleCounter.cs" t="Include" />
+          </e>
+          <e p="ICounter.cs" t="Include" />
+          <e p="Integer" t="Include">
+            <e p="IIntegerCounter.cs" t="Include" />
+            <e p="IntegerCounter.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Db.Metrics.csproj" t="IncludeRecursive" />
+        <e p="IMetricsContext.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="Db.Metrics.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="PrimitiveCounter.cs" t="Include" />
+      </e>
+      <e p="Db.sln" t="IncludeFlat" />
+      <e p="Db.Storage" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CachingStorage.cs" t="Include" />
+        <e p="CustomStorage.cs" t="Include" />
+        <e p="CustomStorageExtensions.cs" t="Include" />
+        <e p="Db.Storage.csproj" t="IncludeRecursive" />
+        <e p="ICustomStorage.cs" t="Include" />
+        <e p="InFileStorage.cs" t="Include" />
+        <e p="InMemoryStorage.cs" t="Include" />
+        <e p="IStorage.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="Db.Storage.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Serialization" t="Include">
+          <e p="ISerialization.cs" t="Include" />
+          <e p="JsonSerialization.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Db.Utils" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Db.Utils.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="Db.Utils.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Result.cs" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>

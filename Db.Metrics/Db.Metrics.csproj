@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyName>Db.Metrics</AssemblyName>
+        <RootNamespace>Db.Metrics</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Db.Logging\Db.Logging.csproj" />
+    </ItemGroup>
+
+</Project>
