@@ -2,24 +2,13 @@ using Newtonsoft.Json;
 
 namespace Db.Storage.Serialization
 {
-    public class JsonSerialization<TValue> : ISerialization<TValue>
-    {
-        public string Serialize(TValue value)
-        {
-            return JsonConvert.SerializeObject(value);
-        }
-
-        public TValue Deserialize(string value)
-        {
-            return JsonConvert.DeserializeObject<TValue>(value);
-        }
-    }
-    
     public class JsonSerialization : ISerialization
     {
+        public bool IsIndented { get; set; }
+        
         public string Serialize<T>(T value)
         {
-            return JsonConvert.SerializeObject(value);
+            return JsonConvert.SerializeObject(value, IsIndented ? Formatting.Indented : Formatting.None);
         }
 
         public T Deserialize<T>(string value)

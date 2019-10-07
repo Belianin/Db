@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Db.Logging;
@@ -35,9 +36,10 @@ namespace Db.Storage
         }
     }
     
+    [Obsolete("Нужно дескриптор всегда держать открытым")]
     public class InFileStorage<TKey> : IStorage<TKey>
     {
-        private readonly ISerialization serialization = new JsonSerialization();
+        private readonly ISerialization serialization = new JsonSerialization {IsIndented = true};
 
         private readonly string path;
 

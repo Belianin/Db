@@ -37,8 +37,8 @@ namespace Db.Storage
 
         public CachingStorage(IStorage<TKey, TValue> cacheStorage, IStorage<TKey, TValue> longStorage, ILog log)
         {
-            cts = new CancellationTokenSource();
-            timeToLive = new ConcurrentDictionary<TKey, int>();
+            this.cts = new CancellationTokenSource();
+            this.timeToLive = new ConcurrentDictionary<TKey, int>();
             this.cacheStorage = cacheStorage;
             this.longStorage = longStorage;
             this.log = log;
@@ -83,12 +83,13 @@ namespace Db.Storage
             timeToLive.Remove(key);
             await cacheStorage.DeleteAsync(key).ConfigureAwait(false);
             await longStorage.DeleteAsync(key).ConfigureAwait(false);
+            
             return Result.Ok();
         }
 
         public void Save()
         {
-            Task.WaitAll(timeToLive.Select(pair => MoveFromCacheToLong(pair.Key)).ToArray());
+            Task.WaitAll(timeToLive.Select(pair => CopyFromCacheToLong(pair.Key)).ToArray());
         }
         
         public void Dispose()
@@ -110,16 +111,17 @@ namespace Db.Storage
                         continue;
                     
                     timeToLive.Remove(keyValuePair.Key);
-                    tasks.Add(MoveFromCacheToLong(keyValuePair.Key));
+                    log.Debug($"key:{keyValuePair.Key.ToString()} data is expired");
+                    tasks.Add(CopyFromCacheToLong(keyValuePair.Key));
+                    //new Task(() => cacheStorage.DeleteAsync(keyValuePair.Key));
                 }
 
                 Task.WaitAll(tasks.ToArray());
             }
         }
 
-        private async Task MoveFromCacheToLong(TKey key)
+        private async Task CopyFromCacheToLong(TKey key)
         {
-            log.Debug($"key:{key.ToString()} data is expired");
             var value = await cacheStorage.GetAsync(key).ConfigureAwait(false);
             await longStorage.CreateOrUpdateAsync(key, value.Value).ConfigureAwait(false);
         }
