@@ -8,10 +8,5 @@ namespace Db.Storage.Keyless
         {
             storage.Create(new []{value});
         }
-        
-        public static InMemoryKeylessStorage<T> ToKeylessStorage<T>(this List<T> list)
-        {
-            return new InMemoryKeylessStorage<T>{List = list};
-        }
     }
 }
