@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Db.Logging\Db.Logging.csproj" />
+      <ProjectReference Include="..\Db.Storage\Db.Storage.csproj" />
     </ItemGroup>
 
 </Project>
