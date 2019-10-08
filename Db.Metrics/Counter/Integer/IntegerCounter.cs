@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Db.Storage.Keyless;
@@ -9,13 +10,13 @@ namespace Db.Metrics.Counter.Integer
     {
         private int currentValue;
 
-        private readonly IKeylessStorage<CounterEvent<int>> events;
+        private readonly List<CounterEvent<int>> events;
 
         private readonly TimeSpan aggregationPeriod;
 
         internal IntegerCounter(
             TimeSpan aggregationPeriod,
-            IKeylessStorage<CounterEvent<int>> events)
+            List<CounterEvent<int>> events)
         {
             this.aggregationPeriod = aggregationPeriod;
             this.events = events;
@@ -43,7 +44,7 @@ namespace Db.Metrics.Counter.Integer
             while (true)
             {
                 Thread.Sleep(aggregationPeriod);
-                events.Create(new CounterEvent<int>(currentValue));
+                events.Add(new CounterEvent<int>(currentValue));
                 currentValue = 0;
             }
         }
