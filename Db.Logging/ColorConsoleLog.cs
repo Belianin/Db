@@ -9,7 +9,7 @@ namespace Db.Logging
         {
             if (!IsInfoEnabled)
                 return;
-            var logEvent = new LogEvent(LogEventLevel.INFO, DateTime.Now, text);
+            var logEvent = new LogEvent(LogLevel.Info, text);
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(LogFormatter.Format(logEvent));
         }
@@ -18,7 +18,7 @@ namespace Db.Logging
         {
             if (!IsWarnEnabled)
                 return;
-            var logEvent = new LogEvent(LogEventLevel.WARN, DateTime.Now, text);
+            var logEvent = new LogEvent(LogLevel.Warning, text);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(LogFormatter.Format(logEvent));
         }
@@ -27,7 +27,7 @@ namespace Db.Logging
         {
             if (!IsFatalEnabled)
                 return;
-            var logEvent = new LogEvent(LogEventLevel.FATAL, DateTime.Now, text);
+            var logEvent = new LogEvent(LogLevel.Fatal, text);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(LogFormatter.Format(logEvent));
         }
@@ -36,7 +36,7 @@ namespace Db.Logging
         {
             if (!IsDebugEnabled)
                 return;
-            var logEvent = new LogEvent(LogEventLevel.DEBUG, DateTime.Now, text);
+            var logEvent = new LogEvent(LogLevel.Debug, text);
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine(LogFormatter.Format(logEvent));
         }
@@ -45,7 +45,7 @@ namespace Db.Logging
         {
             if (!IsErrorEnabled)
                 return;
-            var logEvent = new LogEvent(LogEventLevel.ERROR, DateTime.Now, text);
+            var logEvent = new LogEvent(LogLevel.Error, text);
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine(LogFormatter.Format(logEvent));
         }
@@ -54,7 +54,7 @@ namespace Db.Logging
         {
             if (!IsErrorEnabled)
                 return;
-            var logEvent = new LogEvent(LogEventLevel.ERROR, DateTime.Now, exception.Message);
+            var logEvent = new LogEvent(LogLevel.Error, exception.Message);
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine(LogFormatter.Format(logEvent));
         }
@@ -63,14 +63,14 @@ namespace Db.Logging
         {
             if (!IsErrorEnabled)
                 return;
-            var logEvent = new LogEvent(LogEventLevel.ERROR, DateTime.Now, $"{text} {exception.Message}");
+            var logEvent = new LogEvent(LogLevel.Error, $"{text} {exception.Message}");
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine(LogFormatter.Format(logEvent));
         }
 
         public void Custom(string text)
         {
-            var logEvent = new LogEvent(LogEventLevel.CUSTOM, DateTime.Now, text);
+            var logEvent = new LogEvent(LogLevel.Custom, text);
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(LogFormatter.Format(logEvent));
         }

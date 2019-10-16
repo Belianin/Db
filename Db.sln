@@ -8,8 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db.Storage", "Db.Storage\Db
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db.Utils", "Db.Utils\Db.Utils.csproj", "{0355636A-06AB-464F-903F-4BCF1175ABBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db.Metrics.Tests", "Db.Metrics.Tests\Db.Metrics.Tests.csproj", "{55B6C8CE-051C-493C-AEB2-3A97AD5B2E36}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,9 +30,5 @@ Global
 		{0355636A-06AB-464F-903F-4BCF1175ABBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0355636A-06AB-464F-903F-4BCF1175ABBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0355636A-06AB-464F-903F-4BCF1175ABBC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55B6C8CE-051C-493C-AEB2-3A97AD5B2E36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55B6C8CE-051C-493C-AEB2-3A97AD5B2E36}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55B6C8CE-051C-493C-AEB2-3A97AD5B2E36}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55B6C8CE-051C-493C-AEB2-3A97AD5B2E36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

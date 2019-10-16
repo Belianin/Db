@@ -29,7 +29,7 @@ namespace Db.Storage.Keyless
         {
             using (var writer = File.AppendText(fileName))
             {
-                writer.Write(string.Join("\n", value.Select(serialization.Serialize)));
+                writer.Write(string.Join("\n", value.Select(serialization.Serialize) + "\n"));
             }
         }
 

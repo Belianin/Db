@@ -1,39 +1,40 @@
 using System;
+using System.ComponentModel;
 
 namespace Db.Logging.Abstractions
 {
     public class LogEvent
     {
-        public LogEventLevel Level { get; }
+        public LogLevel Level { get; }
         
         public DateTime DateTime { get; }
         
         public string Message { get; }
         
-        public Exception Exception { get; private set; }
-        
-        public Type Creator { get; }
+        public string Author { get; }
 
-        public LogEvent(LogEventLevel level, DateTime dateTime, string message)
+        public LogEvent(LogLevel level, string message, string author = null)
         {
             Level = level;
-            DateTime = dateTime;
             Message = message;
-        }
-
-        public static LogEvent FromException(Exception exception, string error = null)
-        {
-            return new LogEvent(LogEventLevel.ERROR, DateTime.Now, error) {Exception = exception};
+            Author = author;
+            DateTime = DateTime.Now;
         }
     }
 
-    public enum LogEventLevel
+    public enum LogLevel
     {
-        INFO,
-        WARN,
-        ERROR,
-        FATAL,
-        DEBUG,
-        CUSTOM
+        [Description("INFO")]
+        Info,
+        [Description("WARN")]
+        Warning,
+        [Description("ERROR")]
+        Error,
+        [Description("FATAL")]
+        Fatal,
+        [Description("DEBUG")]
+        Debug,
+        [Description("CUSTOM")]
+        Custom
     }
 }

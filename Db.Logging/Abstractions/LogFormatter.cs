@@ -8,7 +8,7 @@ namespace Db.Logging.Abstractions
     {
         public static string Format(LogEvent logEvent)
         {
-            return $"{logEvent.DateTime.ToString("yyyy-MM-dd HH:mm:ss,fff ", CultureInfo.CurrentCulture)}{TagToString(logEvent.Level.ToString())}{logEvent.Message}";
+            return $"{logEvent.DateTime.ToString("yyyy-MM-dd HH:mm:ss,fff", CultureInfo.CurrentCulture)}{TagToString(logEvent.Level.ToString())}{logEvent.Message}";
         }
         
         private static string TagToString(string tag)

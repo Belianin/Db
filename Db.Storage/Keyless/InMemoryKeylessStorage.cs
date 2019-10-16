@@ -5,6 +5,7 @@ using Db.Utils;
 
 namespace Db.Storage.Keyless
 {
+    [Obsolete("Useless")]
     public class InMemoryKeylessStorage<TValue> : IKeylessStorage<TValue>
     {
         private List<TValue> list = new List<TValue>();
