@@ -5,7 +5,6 @@ using Db.Utils;
 
 namespace Db.Storage.Keyless
 {
-    [Obsolete("Useless")]
     public class InMemoryKeylessStorage<TValue> : IKeylessStorage<TValue>
     {
         private List<TValue> list = new List<TValue>();
@@ -17,10 +16,7 @@ namespace Db.Storage.Keyless
         
         public void Create(IEnumerable<TValue> values)
         {
-            foreach (var value in values)
-            {
-                list.Add(value);
-            }
+            list.AddRange(values);
         }
 
         public void Update(Func<TValue, bool> selector, TValue value)
