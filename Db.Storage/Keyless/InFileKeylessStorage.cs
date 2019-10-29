@@ -35,6 +35,15 @@ namespace Db.Storage.Keyless
             return result;
         }
 
+        public void Create(TValue value)
+        {
+            EnsureFileExistence();
+            using (var writer = File.AppendText(fileName))
+            {
+                writer.Write($"{serialization.Serialize(value)}\n");
+            }
+        }
+
         public void Create(IEnumerable<TValue> value)
         {
             EnsureFileExistence();
@@ -78,6 +87,11 @@ namespace Db.Storage.Keyless
                 .ToArray();
             
             File.WriteAllLines(fileName, lines);
+        }
+
+        public void Clear()
+        {
+            File.Create(fileName);
         }
 
         private void EnsureFileExistence()

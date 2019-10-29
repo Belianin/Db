@@ -11,9 +11,14 @@ namespace Db.Storage.Keyless
 
         public IEnumerable<TValue> Get(Func<TValue, bool> selector)
         {
-            return list.Where(selector);
+            return list.Where(selector).ToList();
         }
-        
+
+        public void Create(TValue value)
+        {
+            list.Add(value);
+        }
+
         public void Create(IEnumerable<TValue> values)
         {
             list.AddRange(values);
@@ -26,12 +31,17 @@ namespace Db.Storage.Keyless
 
         public void Update(Func<TValue, bool> selector, Action<TValue> action)
         {
-            list.Where(selector).ForEach(action);
+            list.Where(selector).ForEach(action); // return?
         }
 
         public void Delete(Func<TValue, bool> selector)
         {
             list = list.Where(e => !selector(e)).ToList();
+        }
+
+        public void Clear()
+        {
+            list.Clear();
         }
 
         public static implicit operator InMemoryKeylessStorage<TValue>(List<TValue> list)
