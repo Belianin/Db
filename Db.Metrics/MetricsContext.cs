@@ -29,6 +29,9 @@ namespace Db.Metrics
 
         public IEnumerable<CounterEvent<int>> GetIntegerCountMetrics(string name)
         {
+            if (!integerCounters.ContainsKey(name))
+                throw new ArgumentException($"No \"{name}\" counter");
+            
             return integerCounters[name];
         }
     }
